@@ -1,1 +1,46 @@
-<p>vendors works!</p>
+<div class="container">
+  <div class="form-container">
+    <div class="add-vendor-form">
+      <h2>Add Vendor</h2>
+      <form (ngSubmit)="addVendor()" #vendorForm="ngForm">
+        <input type="email" placeholder="Email" name="email" [(ngModel)]="newVendor.email" required>
+        <input type="text" placeholder="Name" name="name" [(ngModel)]="newVendor.name" required>
+        <input type="text" placeholder="UPI" name="upi" [(ngModel)]="newVendor.upi" required>
+        <button type="submit" [disabled]="vendorForm.invalid">Add</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="vendors" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="upi">
+        <th mat-header-cell *matHeaderCellDef>UPI</th>
+        <td mat-cell *matCellDef="let vendor">{{ vendor.upi }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let vendor; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->
+
+    <div *ngIf="isLoading">
+      Loading vendors...
+    </div>
+    <div *ngIf="error">
+      Error: {{ error }}
+    </div>
+  </div>
+</div>
