@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -5,5 +6,16 @@ import { Injectable } from '@angular/core';
 })
 export class EmailService {
 
-  constructor() { }
+  private baseUrl = 'http://localhost:8080/emails';
+
+  constructor(private http: HttpClient) { }
+
+  getAllEmails() {
+    return this.http.get(`${this.baseUrl}/getAllEmails`);
+  }
+
+  sendEmail(email: any) {
+    return this.http.post(`${this.baseUrl}/sendEmail`, email);
+  }
+
 }
