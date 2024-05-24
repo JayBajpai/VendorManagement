@@ -1,1 +1,43 @@
-<p>emails works!</p>
+<div class="container">
+  <div class="form-container">
+    <div class="send-email-form">
+      <h2>Send Email</h2>
+      <form (ngSubmit)="sendEmail()" #emailForm="ngForm">
+        <input type="email" placeholder="Recipient" name="recipient" [(ngModel)]="newEmail.recipient" required>
+        <input type="text" placeholder="Subject" name="subject" [(ngModel)]="newEmail.subject" required>
+        <textarea placeholder="Body" name="body" [(ngModel)]="newEmail.body" required></textarea>
+        <button type="submit" [disabled]="emailForm.invalid">Send</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="table-container mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+      <ng-container matColumnDef="recipient">
+        <th mat-header-cell *matHeaderCellDef>Recipient</th>
+        <td mat-cell *matCellDef="let email">{{ email.recipient }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="subject">
+        <th mat-header-cell *matHeaderCellDef>Subject</th>
+        <td mat-cell *matCellDef="let email">{{ email.subject }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="body">
+        <th mat-header-cell *matHeaderCellDef>Body</th>
+        <td mat-cell *matCellDef="let email">{{ email.body }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let email; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator> -->
+
+
+  </div>
+</div>
+
+
